@@ -3,9 +3,9 @@
 	angular.module('progressTracker.module')
 		.directive('progressTracker', progressTracker);
 
-	progressTracker.$inject = [];
+	progressTracker.$inject = ['progressTrackerService'];
 
-	function progressTracker(){
+	function progressTracker(progressTrackerService){
 		var directive;
 
 		directive = {
