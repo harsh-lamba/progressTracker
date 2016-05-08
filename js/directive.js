@@ -3,9 +3,9 @@
 	angular.module('progressTracker.module')
 		.directive('progressTracker', progressTracker);
 
-	progressTracker.$inject = ['progressTrackerService'];
+	progressTracker.$inject = ['progressTrackerService', '$compile'];
 
-	function progressTracker(progressTrackerService){
+	function progressTracker(progressTrackerService, $compile){
 		var directive;
 
 		directive = {
@@ -13,7 +13,8 @@
 			scope : {
 
 			},
-			compile : compileFunction
+			compile : compileFunction,
+			replace : true
 		};
 
 		return directive;
@@ -31,7 +32,10 @@
 			/////////////////////////////////////////////
 
 			function linkFunction(scope, element, attribute){
-					
+				
+				var dom  = progressTrackerService.domCreation();
+
+				element.append($compile(dom)(scope));
 			}
 
 		}
