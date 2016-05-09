@@ -20,73 +20,73 @@
 					'items' : 
 					[
 						{
-							'label' : 'child'
+							'label' : 'child1'
 						},
 						{
-							'label' : 'child'
+							'label' : 'child2'
 						},
 						{
-							'label' : 'child'
+							'label' : 'child3'
 						},
 						{
-							'label' : 'child'
+							'label' : 'child4'
 						}
 					]
 				},
 				{
-					'label' : 'Parent1',
+					'label' : 'Parent2',
 					'items' : 
 					[
 						{
-							'label' : 'child'
+							'label' : 'child1'
 						},
 						{
-							'label' : 'child'
+							'label' : 'child2'
 						},
 						{
-							'label' : 'child'
+							'label' : 'child3'
 						},
 						{
-							'label' : 'child'
+							'label' : 'child4'
 						}
 					]
-				},
-				{
-					'label' : 'Parent1',
-					'items' : 
-					[
-						{
-							'label' : 'child'
-						},
-						{
-							'label' : 'child'
-						},
-						{
-							'label' : 'child'
-						},
-						{
-							'label' : 'child'
-						}
-					]
-				},
-				{
-					'label' : 'Parent1',
-					'items' : 
-					[
-						{
-							'label' : 'child'
-						},
-						{
-							'label' : 'child'
-						},
-						{
-							'label' : 'child'
-						},
-						{
-							'label' : 'child'
-						}
-					]
-				},
+				}
+				// {
+				// 	'label' : 'Parent1',
+				// 	'items' : 
+				// 	[
+				// 		{
+				// 			'label' : 'child'
+				// 		},
+				// 		{
+				// 			'label' : 'child'
+				// 		},
+				// 		{
+				// 			'label' : 'child'
+				// 		},
+				// 		{
+				// 			'label' : 'child'
+				// 		}
+				// 	]
+				// },
+				// {
+				// 	'label' : 'Parent1',
+				// 	'items' : 
+				// 	[
+				// 		{
+				// 			'label' : 'child'
+				// 		},
+				// 		{
+				// 			'label' : 'child'
+				// 		},
+				// 		{
+				// 			'label' : 'child'
+				// 		},
+				// 		{
+				// 			'label' : 'child'
+				// 		}
+				// 	]
+				// },
 			];
 
 			_domElement = {
@@ -95,6 +95,16 @@
 				"aElem" : angular.element("<a></a>")
 			}
 
+
+			////////////////////////////////
+			// Service Object
+			///////////////////////////////
+			_Menu.prototype.render = _render;
+			
+			_Menu.renderMenus = _renderMenus;
+
+
+			//Exposed method
 			service = {
 				domCreation : domCreation
 			};
@@ -103,38 +113,36 @@
 
 			///////////////////////////////
 
-			function domCreation(){
-				_recursiveIteration(_tracker);
-
-				console.log(_domElement.ulElem);
-
-				return _domElement.ulElem;
+			function domCreation(ele){
+				debugger;
+				_Menu.renderMenus(_tracker, ele);
 			}
 
-			function _recursiveIteration(jsonObj){
-				debugger;
-				if (typeof jsonObj !== "object")
-					return false;
+			function _Menu(data){
+				this.data = data;
+			}
 
-				//Should have ul element first
+			function _render(root) {
+				//debugger;
+				var ul = angular.element("<ul></ul>"),
+					li = angular.element("<li></li>"),
+					anch = angular.element("<a></a>");
 
-				for (var item in jsonObj){
-					let current = jsonObj[item],
-						label = current.label,
-						liElem = _domElement.liElem,
-						aElem = _domElement.aElem;
+				anch.text(this.data.label);
 
-					//text in anchor element
-					aElem.text(label);
+				li.append(anch).appendTo(ul);
 
-					//Append anchor element
-					liElem.append(aElem);
+				ul.appendTo(root);
 
-					//Append li element
-					_domElement.ulElem.append(liElem);
+				if(this.data.items){
+					_Menu.renderMenus(this.data.items, angular.element("<li></li>").appendTo(ul));
+				}
+			}
 
-					
-					_recursiveIteration(current.items);
+			function _renderMenus(menus, root){
+				for(var item in menus){
+					var m = new _Menu(menus[item]);
+					m.render(root);
 				}
 			}
 		}
