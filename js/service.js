@@ -8,7 +8,8 @@
 		function progressTrackerService(){
 			var service,
 				_tracker,
-				_domElement;
+				_html = [],
+				list;
 
 			/////////////////////////////
 			//------JSON and object
@@ -89,20 +90,11 @@
 				// },
 			];
 
-			_domElement = {
-				"ulElem" : angular.element("<ul></li>"),
-				"liElem" : angular.element("<li></li>"),
-				"aElem" : angular.element("<a></a>")
-			}
 
-
-			////////////////////////////////
-			// Service Object
-			///////////////////////////////
-			_Menu.prototype.render = _render;
-			
-			_Menu.renderMenus = _renderMenus;
-
+			//Progress tracker object
+			Menu.prototype._renderList = _renderList;
+			Menu.prototype._attachhandler = _attachhandler; 
+			Menu.prototype._toggleNext = _toggleNext;
 
 			//Exposed method
 			service = {
@@ -113,37 +105,60 @@
 
 			///////////////////////////////
 
+			
+
 			function domCreation(ele){
-				debugger;
-				_Menu.renderMenus(_tracker, ele);
-			}
-
-			function _Menu(data){
-				this.data = data;
-			}
-
-			function _render(root) {
 				//debugger;
-				var ul = angular.element("<ul></ul>"),
-					li = angular.element("<li></li>"),
-					anch = angular.element("<a></a>");
+				var htmlString;
 
-				anch.text(this.data.label);
+				list = new Menu(_tracker);
 
-				li.append(anch).appendTo(ul);
+				htmlString = list._renderList(_tracker);
 
-				ul.appendTo(root);
+				list._attachhandler(htmlString);
 
-				if(this.data.items){
-					_Menu.renderMenus(this.data.items, angular.element("<li></li>").appendTo(ul));
-				}
+				ele.append(htmlString.join(''));
 			}
 
-			function _renderMenus(menus, root){
-				for(var item in menus){
-					var m = new _Menu(menus[item]);
-					m.render(root);
+			function Menu(data){
+				this.data =data;
+			}
+
+			function _renderList(arr){
+				_html.push('<ul>');
+
+				for(var i in arr){
+					_html.push('<li><a>' + arr[i].label + '</a>');
+
+					if(arr[i].items){
+						_renderList(arr[i].items);
+					}
+
+					_html.push('</li>');
 				}
+
+				_html.push('</ul>');
+
+				return _html;
+			}
+
+			function _attachhandler(ele){
+				var anchor,
+					anchorELements = angular.element(ele.join("")).find("a");
+				
+				angular.forEach(anchorELements, function (value, key){
+					var anchor = angular.element(value),
+						nextEle = anchor.next();
+					
+					if (nextEle.length){
+						console.log(anchor.text(), nextEle);
+						anchor.on("click", function(){ console.log('in');});
+					}
+				});	
+			}
+
+			function _toggleNext(){
+				console.log('in');
 			}
 		}
 	})();
