@@ -1,0 +1,35 @@
+.tracker{
+	display: block;
+	position:relative;
+}
+.tracker a:hover{
+  cursor:pointer;
+}
+  .tracker ul > li{
+  	list-style: none;
+  	display:inline-block;
+  }
+  .tracker ul > li a{
+  	display: block;
+  }
+  .tracker > ul > li{
+  	width:20%;
+  	
+  }
+  .tracker a + ul{
+      visibility: hidden;
+      opacity: 0;
+      -webkit-transition: visibility 0s, opacity 0.5s linear; /* Safari */
+      transition: visibility 0s, opacity 0.5s linear;
+    position:absolute;
+	top:30px;
+	left:0;
+	width:100%;
+  }
+  .tracker a + ul.toggle{
+      visibility: visible;
+      opacity: 1;
+  }
+  .tracker a + ul > li{
+  	width:20%;
+  }
