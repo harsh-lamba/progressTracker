@@ -124,10 +124,17 @@
 			}
 
 			function _renderList(arr){
+				var count=1;
 				_html.push('<ul>');
 
 				for(var i in arr){
-					_html.push('<li><a class="isToggle">' + arr[i].label + '</a>');
+					count = i+1;
+					_html.push(
+							'<li>' +
+							'<a class="isToggle">' +
+							'<span>' + (i+count) +'</span>' +
+							 '<label>' + arr[i].label + '</label>' +
+							'</a>');
 
 					if(arr[i].items){
 						_renderList(arr[i].items);
