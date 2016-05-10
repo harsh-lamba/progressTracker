@@ -17,7 +17,8 @@
       .tracker a + ul{
           visibility: hidden;
           opacity: 0;
-          transition: visibility 0s, opacity o.5s linear;
+          -webkit-transition: visibility 0s, opacity 0.5s linear; /* Safari */
+          transition: visibility 0s, opacity 0.5s linear;
       }
       .tracker a + ul.toggle{
           visibility: visible;

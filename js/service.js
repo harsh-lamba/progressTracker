@@ -99,7 +99,6 @@
 			//Exposed method
 			service = {
 				domCreation : domCreation,
-				attachhandler : _attachhandler
 			};
 
 			return service;
@@ -153,17 +152,18 @@
 					if(anchor.length){
 						anchor.on("click", _toggleNext);
 					}
+					//First time visible
+					if(key === 0){
+						anchor.click();
+					}
 				});
 			}
 
 			function _toggleNext(e){
-				console.log('in');
 				var _this = angular.element(this),
 					nextEle = _this.next(),
 					anchors = angular.element(".isToggle"),
 					elementToToggle = _returnAnchors(anchors);
-
-				console.log(elementToToggle);
 
 				angular.forEach(elementToToggle, function(value, key){
 					var anchor = angular.element(value),
@@ -176,8 +176,7 @@
 
 				if(nextEle.length){
 					nextEle.addClass("toggle");
-				}
-			
+				}			
 			}
 
 			function _returnAnchors(obj){
