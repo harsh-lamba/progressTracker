@@ -33,9 +33,8 @@
 
 			function linkFunction(scope, element, attribute){
 				
-				var dom  = progressTrackerService.domCreation(angular.element(element));
-
-				element.append($compile(dom)(scope));
+				progressTrackerService.domCreation(angular.element(element));
+				
 			}
 
 		}

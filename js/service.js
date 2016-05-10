@@ -98,14 +98,13 @@
 
 			//Exposed method
 			service = {
-				domCreation : domCreation
+				domCreation : domCreation,
+				attachhandler : _attachhandler
 			};
 
 			return service;
 
-			///////////////////////////////
-
-			
+			///////////////////////////////			
 
 			function domCreation(ele){
 				//debugger;
@@ -115,9 +114,10 @@
 
 				htmlString = list._renderList(_tracker);
 
-				list._attachhandler(htmlString);
-
 				ele.append(htmlString.join(''));
+
+				//attach handler
+				list._attachhandler(ele);
 			}
 
 			function Menu(data){
@@ -128,7 +128,7 @@
 				_html.push('<ul>');
 
 				for(var i in arr){
-					_html.push('<li><a>' + arr[i].label + '</a>');
+					_html.push('<li><a class="isToggle">' + arr[i].label + '</a>');
 
 					if(arr[i].items){
 						_renderList(arr[i].items);
@@ -144,21 +144,55 @@
 
 			function _attachhandler(ele){
 				var anchor,
-					anchorELements = angular.element(ele.join("")).find("a");
-				
-				angular.forEach(anchorELements, function (value, key){
-					var anchor = angular.element(value),
-						nextEle = anchor.next();
-					
-					if (nextEle.length){
-						console.log(anchor.text(), nextEle);
-						anchor.on("click", function(){ console.log('in');});
+					anchorELements = angular.element(ele).find("a"),
+					elementToAttachEvent = _returnAnchors(anchorELements);
+
+				angular.forEach(elementToAttachEvent, function (value, key){
+					var anchor = angular.element(value);
+
+					if(anchor.length){
+						anchor.on("click", _toggleNext);
 					}
-				});	
+				});
 			}
 
-			function _toggleNext(){
+			function _toggleNext(e){
 				console.log('in');
+				var _this = angular.element(this),
+					nextEle = _this.next(),
+					anchors = angular.element(".isToggle"),
+					elementToToggle = _returnAnchors(anchors);
+
+				console.log(elementToToggle);
+
+				angular.forEach(elementToToggle, function(value, key){
+					var anchor = angular.element(value),
+						nextEle = anchor.next();
+
+					if(nextEle.length){
+						nextEle.removeClass("toggle");
+					}
+				});
+
+				if(nextEle.length){
+					nextEle.addClass("toggle");
+				}
+			
+			}
+
+			function _returnAnchors(obj){
+				var anchors = [];
+
+				angular.forEach(obj, function (value, key){
+					var anchor = angular.element(value),
+						nextEle = anchor.next();
+
+					if(nextEle.length){
+						anchors.push(anchor);
+					}
+				});
+
+				return anchors;
 			}
 		}
 	})();
