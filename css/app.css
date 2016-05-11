@@ -101,7 +101,8 @@
       opacity: 1;
   }
   .tracker a + ul > li{
-    width:calc(100%/5);
+    width:calc(400%/5);
+    position:relative;
   }
   .tracker > ul > li > a:before{
     content:"";
