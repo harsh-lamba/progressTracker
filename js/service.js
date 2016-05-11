@@ -17,75 +17,66 @@
 			_tracker = 
 			[
 				{
-					'label' : 'Parent1',
+					'label' : 'Vacature inhoud',
 					'items' : 
 					[
 						{
-							'label' : 'Parent1child1'
+							'label' : 'Label'
 						},
 						{
-							'label' : 'Parent1child2'
+							'label' : 'Titel'
 						},
 						{
-							'label' : 'Parent1child3'
+							'label' : 'Tekst inhoud'
 						},
 						{
-							'label' : 'Parent1child4'
+							'label' : 'Vacature overzicht'
+						},
+						{
+							'label' : 'Verbeteradvies'
 						}
 					]
 				},
 				{
-					'label' : 'Parent2',
+					'label' : 'Instroom management',
 					'items' : 
 					[
 						{
-							'label' : 'Parent2child1'
+							'label' : 'Benchmark'
 						},
 						{
-							'label' : 'Parent2child2'
+							'label' : 'Kanalenmix'
 						},
 						{
-							'label' : 'Parent2child3'
+							'label' : 'Assessments'
 						},
 						{
-							'label' : 'Parent2child4'
+							'label' : 'Chat'
 						}
 					]
 				},
 				{
-					'label' : 'Parent3',
+					'label' : 'Concepten',
 					'items' : 
 					[
 						{
-							'label' : 'Parent3child'
+							'label' : 'Actueel'
 						},
 						{
-							'label' : 'Parent3child'
-						},
-						{
-							'label' : 'Parent3child'
-						},
-						{
-							'label' : 'Parent3child'
+							'label' : 'Archief'
 						}
 					]
 				},
 				{
-					'label' : 'Parent4',
+					'label' : 'Publicaties',
 					'items' : 
 					[
 						{
-							'label' : 'Parent4child'
+							'label' : 'Actueel'
 						},
 						{
-							'label' : 'Parent4child'
+							'label' : 'Archief'
 						},
-						{
-							'label' : 'Parent4child'
-						},
-						{
-							'label' : 'Parent4child'
-						}
 					]
 				}
 			];
