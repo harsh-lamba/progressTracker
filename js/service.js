@@ -124,15 +124,17 @@
 			}
 
 			function _renderList(arr){
-				var count=1;
+				var count = 0;
 				_html.push('<ul>');
 
 				for(var i in arr){
-					count = i+1;
+
+					count = count + 1;
+
 					_html.push(
 							'<li>' +
 							'<a class="isToggle">' +
-							'<span>' + (i+count) +'</span>' +
+							'<span class="img-circle">' + count + '</span>' +
 							 '<label>' + arr[i].label + '</label>' +
 							'</a>');
 
