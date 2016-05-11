@@ -11,6 +11,7 @@
 .tracker ul{
   margin:0;
   padding:0;
+  text-align: center;
 }
 .tracker a{
   text-align: center;
@@ -94,5 +95,5 @@
       opacity: 1;
   }
   .tracker a + ul > li{
-    width:calc(100%/4);
+    width:calc(100%/5);
   }
