@@ -44,11 +44,11 @@
   }
 
   .tracker > ul > li > a > span{
-    background-color:#FF9800;
+    color:#444;
     display:inline-block;
     width:30px;
     height:30px;
-    line-height:30px;color:#fff;font-weight:1em;
+    line-height:30px;font-size:1em;
   }
   .tracker > ul > li{
   }
@@ -121,4 +121,8 @@
     height:1px;
     border-top: 1px solid #cacaca;
     border-bottom:1px solid #fff;
+  }
+  .tracker > ul > li > a.current > span{
+    background-color:#FF9800;
+    color:#fff;
   }

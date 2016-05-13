@@ -21,19 +21,24 @@
 					'items' : 
 					[
 						{
-							'label' : 'Label'
+							'label' : 'Label',
+							'url' : ''
 						},
 						{
-							'label' : 'Titel'
+							'label' : 'Titel',
+							'url' : ''
 						},
 						{
-							'label' : 'Tekst inhoud'
+							'label' : 'Tekst inhoud',
+							'url' : ''
 						},
 						{
-							'label' : 'Vacature overzicht'
+							'label' : 'Vacature overzicht',
+							'url' : ''
 						},
 						{
-							'label' : 'Verbeteradvies'
+							'label' : 'Verbeteradvies',
+							'url' : ''
 						}
 					]
 				},
@@ -42,16 +47,20 @@
 					'items' : 
 					[
 						{
-							'label' : 'Benchmark'
+							'label' : 'Benchmark',
+							'url' : ''
 						},
 						{
-							'label' : 'Kanalenmix'
+							'label' : 'Kanalenmix',
+							'url' : ''
 						},
 						{
-							'label' : 'Assessments'
+							'label' : 'Assessments',
+							'url' : ''
 						},
 						{
-							'label' : 'Chat'
+							'label' : 'Chat',
+							'url' : ''
 						}
 					]
 				},
@@ -60,10 +69,12 @@
 					'items' : 
 					[
 						{
-							'label' : 'Actueel'
+							'label' : 'Actueel',
+							'url' : ''
 						},
 						{
-							'label' : 'Archief'
+							'label' : 'Archief',
+							'url' : ''
 						}
 					]
 				},
@@ -72,10 +83,12 @@
 					'items' : 
 					[
 						{
-							'label' : 'Actueel'
+							'label' : 'Actueel',
+							'url' : ''
 						},
 						{
-							'label' : 'Archief'
+							'label' : 'Archief',
+							'url' : ''
 						},
 					]
 				}
@@ -84,8 +97,10 @@
 
 			//Progress tracker object
 			Menu.prototype._renderList = _renderList;
+			Menu.prototype._getParentAnchor = _getParentAnchor;
 			Menu.prototype._attachhandler = _attachhandler; 
 			Menu.prototype._toggleNext = _toggleNext;
+			Menu.prototype._returnAnchors = _returnAnchors;
 
 			//Exposed method
 			service = {
@@ -102,23 +117,25 @@
 
 				list = new Menu(_tracker);
 
-				htmlString = list._renderList(_tracker);
+				htmlString = list._renderList();
 
 				ele.append(htmlString.join(''));
 
 				//attach handler
-				list._attachhandler(ele);
+				list._getParentAnchor(ele);
 			}
 
 			function Menu(data){
 				this.data =data;
 			}
 
-			function _renderList(arr){
-				var count = 0;
-				_html.push('<ul>');
+			function _renderList(arrObj){
+				var count = 0,
+					arr = arrObj || this.data;
 
-				for(var i in arr){
+				_html.push('<ul>');
+				
+				for (var i in arr){
 
 					count = count + 1;
 
@@ -130,7 +147,7 @@
 							'</a>');
 
 					if(arr[i].items){
-						_renderList(arr[i].items);
+						list._renderList(arr[i].items);
 					}
 
 					_html.push('</li>');
@@ -141,7 +158,7 @@
 				return _html;
 			}
 
-			function _attachhandler(ele){
+			function _getParentAnchor(ele){
 				var anchor,
 					anchorELements = angular.element(ele).find("a"),
 					elementToAttachEvent = _returnAnchors(anchorELements);
@@ -150,7 +167,7 @@
 					var anchor = angular.element(value);
 
 					if(anchor.length){
-						anchor.on("click", _toggleNext);
+						list._attachhandler(anchor, "click", _toggleNext);
 					}
 					//First time visible
 					if(key === 0){
@@ -159,26 +176,41 @@
 				});
 			}
 
+			//Attach handler
+			function _attachhandler(ele, event, fn){
+				if(!ele.length && !event.length && typeof fn !== "function"){
+					return;
+				}
+
+				var element = angular.element(ele);
+
+				element.on(event, fn);
+			}
+
+			/*Call back for parent nodes*/
 			function _toggleNext(e){
 				var _this = angular.element(this),
 					nextEle = _this.next(),
 					anchors = angular.element(".isToggle"),
-					elementToToggle = _returnAnchors(anchors);
+					elementToToggle = list._returnAnchors(anchors);
 
 				angular.forEach(elementToToggle, function(value, key){
 					var anchor = angular.element(value),
 						nextEle = anchor.next();
 
 					if(nextEle.length){
+						anchor.removeClass("current");
 						nextEle.removeClass("toggle");
 					}
 				});
 
 				if(nextEle.length){
+					_this.addClass("current");
 					nextEle.addClass("toggle");
 				}			
 			}
 
+			//Returns anchors which has 'ul' as sibling element
 			function _returnAnchors(obj){
 				var anchors = [];
 
