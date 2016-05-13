@@ -99,7 +99,6 @@
 			//Progress tracker object
 			Menu.prototype._renderList = _renderList;
 			Menu.prototype._getAnchorElements = _getAnchorElements;
-			Menu.prototype._getParentAnchor = _getParentAnchor;
 			Menu.prototype._attachhandler = _attachhandler;
 			Menu.prototype._returnAnchors = _returnAnchors;
 
@@ -128,8 +127,6 @@
 				//attach handler to all of the anchor tags
 				list._getAnchorElements(ele);
 
-				//attach handler
-				list._getParentAnchor(ele);
 			}
 
 			function Menu(data){
@@ -173,25 +170,12 @@
 
 					if(anchor.length){
 						list._attachhandler(anchor, "click", _commonHandler);
-					}					
-				});
-			}
+					}		
 
-			function _getParentAnchor(ele){
-				var anchor,
-					anchorELements = angular.element(ele).find("a"),
-					elementToAttachEvent = _returnAnchors(anchorELements);
-
-				angular.forEach(elementToAttachEvent, function (value, key){
-					var anchor = angular.element(value);
-
-					if(anchor.length){
-						list._attachhandler(anchor, "click", _toggleNext);
-					}
 					//First time visible
 					if(key === 0){
 						anchor.click();
-					}
+					}			
 				});
 			}
 
