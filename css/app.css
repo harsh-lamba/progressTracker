@@ -16,7 +16,7 @@
 .tracker a{
   text-align: center;
 }
-.tracker a:hover{
+.tracker a:hover, .tracker a:hover span, .tracker a:hover label{
   cursor:pointer;
 }
   .tracker ul > li{
@@ -26,6 +26,9 @@
   .tracker ul > li a{
   	display: block;
     color:#444;
+  }
+  .tracker ul > li a.current label{
+    color:#FF9800;
   }
   .tracker > ul > li{
   	width:calc(100%/4);
@@ -125,4 +128,7 @@
   .tracker > ul > li > a.current > span{
     background-color:#FF9800;
     color:#fff;
+  }
+  .tracker > ul > li > a.current > label{
+    color:#444;
   }

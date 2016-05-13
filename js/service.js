@@ -9,7 +9,8 @@
 			var service,
 				_tracker,
 				_html = [],
-				list;
+				list,
+				cacheElement;
 
 			/////////////////////////////
 			//------JSON and object
@@ -97,9 +98,9 @@
 
 			//Progress tracker object
 			Menu.prototype._renderList = _renderList;
+			Menu.prototype._getAnchorElements = _getAnchorElements;
 			Menu.prototype._getParentAnchor = _getParentAnchor;
-			Menu.prototype._attachhandler = _attachhandler; 
-			Menu.prototype._toggleNext = _toggleNext;
+			Menu.prototype._attachhandler = _attachhandler;
 			Menu.prototype._returnAnchors = _returnAnchors;
 
 			//Exposed method
@@ -120,6 +121,12 @@
 				htmlString = list._renderList();
 
 				ele.append(htmlString.join(''));
+
+				//Cache element for future use -- copy reference of same object in order see the changes in main object as well
+				cacheElement = ele;
+
+				//attach handler to all of the anchor tags
+				list._getAnchorElements(ele);
 
 				//attach handler
 				list._getParentAnchor(ele);
@@ -158,6 +165,18 @@
 				return _html;
 			}
 
+			function _getAnchorElements(ele){
+				var anchorELements = angular.element(ele).find("a");
+
+				angular.forEach(anchorELements, function(value, key){
+					var anchor = angular.element(value);
+
+					if(anchor.length){
+						list._attachhandler(anchor, "click", _commonHandler);
+					}					
+				});
+			}
+
 			function _getParentAnchor(ele){
 				var anchor,
 					anchorELements = angular.element(ele).find("a"),
@@ -187,31 +206,9 @@
 				element.on(event, fn);
 			}
 
-			/*Call back for parent nodes*/
-			function _toggleNext(e){
-				var _this = angular.element(this),
-					nextEle = _this.next(),
-					anchors = angular.element(".isToggle"),
-					elementToToggle = list._returnAnchors(anchors);
-
-				angular.forEach(elementToToggle, function(value, key){
-					var anchor = angular.element(value),
-						nextEle = anchor.next();
-
-					if(nextEle.length){
-						anchor.removeClass("current");
-						nextEle.removeClass("toggle");
-					}
-				});
-
-				if(nextEle.length){
-					_this.addClass("current");
-					nextEle.addClass("toggle");
-				}			
-			}
-
 			//Returns anchors which has 'ul' as sibling element
 			function _returnAnchors(obj){
+				console.log(obj);
 				var anchors = [];
 
 				angular.forEach(obj, function (value, key){
@@ -224,6 +221,31 @@
 				});
 
 				return anchors;
+			}
+
+			function _commonHandler(e){
+				var _this = angular.element(this),
+					nextEle = _this.next(),
+					siblingAnchorElement = _this.closest('ul').find(" > li > a.isToggle");
+
+				angular.forEach (siblingAnchorElement, function (value, key){
+					var anchor = angular.element(value),
+						nextEle = anchor.next();
+
+					if (nextEle.length){
+						anchor.removeClass("current");
+						nextEle.removeClass("toggle");
+					}else {
+						anchor.removeClass("current");
+					}
+				});
+
+				if (nextEle.length){
+					_this.addClass("current");
+					nextEle.addClass("toggle");
+				}else {
+					_this.addClass("current");
+				}
 			}
 		}
 	})();
