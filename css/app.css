@@ -7,6 +7,7 @@
 .tracker{
 	display: block;
 	position:relative;
+  height:120px;
 }
 .tracker ul{
   margin:0;
@@ -131,4 +132,8 @@
   }
   .tracker > ul > li > a.current > label{
     color:#444;
+  }
+  .view h1{
+    text-align: center;
+    text-transform: capitalize;
   }

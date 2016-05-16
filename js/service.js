@@ -3,9 +3,9 @@
 		angular.module('progressTracker.module').
 			service('progressTrackerService', progressTrackerService);
 
-		progressTrackerService.$inject = ['$timeout'];
+		progressTrackerService.$inject = ['$timeout', '$state'];
 
-		function progressTrackerService($timeout){
+		function progressTrackerService($timeout, $state){
 			var service,
 				_tracker,
 				_html = [],
@@ -23,23 +23,28 @@
 					[
 						{
 							'label' : 'Label',
-							'url' : ''
+							'url' : '/vacature/label',
+							'urlState' : 'vacature.label' 
 						},
 						{
 							'label' : 'Titel',
-							'url' : ''
+							'url' : '/vacature/titel',
+							'urlState' : 'vacature.titel'
 						},
 						{
 							'label' : 'Tekst inhoud',
-							'url' : ''
+							'url' : '/vacature/inhoud',
+							'urlState' : 'vacature.inhoud'
 						},
 						{
 							'label' : 'Vacature overzicht',
-							'url' : ''
+							'url' : '/vacature/overzicht',
+							'urlState' : 'vacature.overzicht'
 						},
 						{
 							'label' : 'Verbeteradvies',
-							'url' : ''
+							'url' : '/vacature/advies',
+							'urlState' : 'vacature.advies'
 						}
 					]
 				},
@@ -49,19 +54,23 @@
 					[
 						{
 							'label' : 'Benchmark',
-							'url' : ''
+							'url' : '/benchmark',
+							'urlState' : 'instroom.benchmark'
 						},
 						{
 							'label' : 'Kanalenmix',
-							'url' : ''
+							'url' : '/analenmix',
+							'urlState' : 'instroom.analenmix'
 						},
 						{
 							'label' : 'Assessments',
-							'url' : ''
+							'url' : '/assessments',
+							'urlState' : 'instroom.assessments'
 						},
 						{
 							'label' : 'Chat',
-							'url' : ''
+							'url' : '/chat',
+							'urlState' : 'instroom.chat'
 						}
 					]
 				},
@@ -71,11 +80,13 @@
 					[
 						{
 							'label' : 'Actueel',
-							'url' : ''
+							'url' : '/Actueel',
+							'urlState' : 'concepten.assessments'
 						},
 						{
 							'label' : 'Archief',
-							'url' : ''
+							'url' : '/Archief',
+							'urlState' : 'concepten.assessments'
 						}
 					]
 				},
@@ -85,11 +96,13 @@
 					[
 						{
 							'label' : 'Actueel',
-							'url' : ''
+							'url' : '/Actueel',
+							'urlState' : 'publicates.Actueel'
 						},
 						{
 							'label' : 'Archief',
-							'url' : ''
+							'url' : '/Archief',
+							'urlState' : 'publicates.Archief'
 						},
 					]
 				}
@@ -101,6 +114,7 @@
 			Menu.prototype._getAnchorElements = _getAnchorElements;
 			Menu.prototype._attachhandler = _attachhandler;
 			Menu.prototype._returnAnchors = _returnAnchors;
+			Menu.prototype._goToState = _goToState;
 
 			//Exposed method
 			service = {
@@ -146,8 +160,9 @@
 
 					_html.push(
 							'<li>' +
-							'<a class="isToggle">' +
-							'<span class="img-circle">' + count + '</span>' +
+							'<a class="isToggle"' +
+							(typeof arr[i].urlState !== "undefined" ? "ui-sref='" + arr[i].urlState + "'" : "") + 
+							'><span class="img-circle">' + count + '</span>' +
 							 '<label>' + arr[i].label + '</label>' +
 							'</a>');
 
@@ -214,6 +229,7 @@
 
 			//Click handler for all anchor elements
 			function _commonHandler(e){
+				console.log('in');
 				var _this = angular.element(this),
 					nextEle = _this.next(),
 					siblingAnchorElement = _this.closest('ul').find(" > li > a.isToggle");
@@ -237,6 +253,23 @@
 				}else {
 					_this.addClass("current");
 				}
+
+				//changeState
+				list._goToState(_this);
+			}
+
+
+			function _goToState(ele){
+				var ele = angular.element(ele),
+					state = ele.attr('ui-sref');
+
+				if(typeof state !== "undefined"){
+					console.log(state);
+					$state.go(state);
+				}
+
+				//typeof state !== "undefined" ? $state.go(state) : "";
+
 			}
 
 			//Handler to click second child element
