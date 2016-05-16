@@ -30,50 +30,50 @@
 							'label' : 'Titel',
 							'url' : '/vacature/titel',
 							'urlState' : 'vacature.titel'
-						},
-						{
-							'label' : 'Tekst inhoud',
-							'url' : '/vacature/inhoud',
-							'urlState' : 'vacature.inhoud'
-						},
-						{
-							'label' : 'Vacature overzicht',
-							'url' : '/vacature/overzicht',
-							'urlState' : 'vacature.overzicht'
-						},
-						{
-							'label' : 'Verbeteradvies',
-							'url' : '/vacature/advies',
-							'urlState' : 'vacature.advies'
 						}
+						// {
+						// 	'label' : 'Tekst inhoud',
+						// 	'url' : '/vacature/inhoud',
+						// 	'urlState' : 'vacature.inhoud'
+						// },
+						// {
+						// 	'label' : 'Vacature overzicht',
+						// 	'url' : '/vacature/overzicht',
+						// 	'urlState' : 'vacature.overzicht'
+						// },
+						// {
+						// 	'label' : 'Verbeteradvies',
+						// 	'url' : '/vacature/advies',
+						// 	'urlState' : 'vacature.advies'
+						// }
 					]
 				},
-				{
-					'label' : 'Instroom management',
-					'items' : 
-					[
-						{
-							'label' : 'Benchmark',
-							'url' : '/benchmark',
-							'urlState' : 'instroom.benchmark'
-						},
-						{
-							'label' : 'Kanalenmix',
-							'url' : '/analenmix',
-							'urlState' : 'instroom.analenmix'
-						},
-						{
-							'label' : 'Assessments',
-							'url' : '/assessments',
-							'urlState' : 'instroom.assessments'
-						},
-						{
-							'label' : 'Chat',
-							'url' : '/chat',
-							'urlState' : 'instroom.chat'
-						}
-					]
-				},
+				// {
+				// 	'label' : 'Instroom management',
+				// 	'items' : 
+				// 	[
+				// 		{
+				// 			'label' : 'Benchmark',
+				// 			'url' : '/benchmark',
+				// 			'urlState' : 'instroom.benchmark'
+				// 		},
+				// 		{
+				// 			'label' : 'Kanalenmix',
+				// 			'url' : '/analenmix',
+				// 			'urlState' : 'instroom.analenmix'
+				// 		},
+				// 		{
+				// 			'label' : 'Assessments',
+				// 			'url' : '/assessments',
+				// 			'urlState' : 'instroom.assessments'
+				// 		},
+				// 		{
+				// 			'label' : 'Chat',
+				// 			'url' : '/chat',
+				// 			'urlState' : 'instroom.chat'
+				// 		}
+				// 	]
+				// },
 				{
 					'label' : 'Concepten',
 					'items' : 
@@ -81,31 +81,31 @@
 						{
 							'label' : 'Actueel',
 							'url' : '/Actueel',
-							'urlState' : 'concepten.assessments'
+							'urlState' : 'concepten.Actueel'
 						},
 						{
 							'label' : 'Archief',
 							'url' : '/Archief',
-							'urlState' : 'concepten.assessments'
+							'urlState' : 'concepten.Archief'
 						}
 					]
-				},
-				{
-					'label' : 'Publicaties',
-					'items' : 
-					[
-						{
-							'label' : 'Actueel',
-							'url' : '/Actueel',
-							'urlState' : 'publicates.Actueel'
-						},
-						{
-							'label' : 'Archief',
-							'url' : '/Archief',
-							'urlState' : 'publicates.Archief'
-						},
-					]
 				}
+				// {
+				// 	'label' : 'Publicaties',
+				// 	'items' : 
+				// 	[
+				// 		{
+				// 			'label' : 'Actueel',
+				// 			'url' : '/Actueel',
+				// 			'urlState' : 'publicates.Actueel'
+				// 		},
+				// 		{
+				// 			'label' : 'Archief',
+				// 			'url' : '/Archief',
+				// 			'urlState' : 'publicates.Archief'
+				// 		},
+				// 	]
+				// }
 			];
 
 
