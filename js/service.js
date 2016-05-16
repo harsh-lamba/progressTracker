@@ -3,9 +3,9 @@
 		angular.module('progressTracker.module').
 			service('progressTrackerService', progressTrackerService);
 
-		progressTrackerService.$inject = [];
+		progressTrackerService.$inject = ['$timeout'];
 
-		function progressTrackerService(){
+		function progressTrackerService($timeout){
 			var service,
 				_tracker,
 				_html = [],
@@ -133,6 +133,7 @@
 				this.data =data;
 			}
 
+			//Render list
 			function _renderList(arrObj){
 				var count = 0,
 					arr = arrObj || this.data;
@@ -162,6 +163,7 @@
 				return _html;
 			}
 
+			//Get all anchor elements on which we need to attach handlers
 			function _getAnchorElements(ele){
 				var anchorELements = angular.element(ele).find("a");
 
@@ -172,30 +174,33 @@
 						list._attachhandler(anchor, "click", _commonHandler);
 					}		
 
-					//First time visible
-					if(key === 0){
-						anchor.click();
-					}			
+					//First time visible -- timeout because child element doesnot have click handler yet attached. 
+					//So it need to wait for it.
+					$timeout(function() {
+						if(key === 0){
+							anchor.click();
+						}	
+					});					
 				});
 			}
 
-			//Attach handler
+			//Event Attach handler
 			function _attachhandler(ele, event, fn){
-				if(!ele.length && !event.length && typeof fn !== "function"){
+				if (!ele.length && !event.length && typeof fn !== "function"){
 					return;
 				}
 
 				var element = angular.element(ele);
 
+				//Attach event and handler to element
 				element.on(event, fn);
 			}
 
 			//Returns anchors which has 'ul' as sibling element
 			function _returnAnchors(obj){
-				console.log(obj);
 				var anchors = [];
 
-				angular.forEach(obj, function (value, key){
+				angular.forEach (obj, function (value, key){
 					var anchor = angular.element(value),
 						nextEle = anchor.next();
 
@@ -207,6 +212,7 @@
 				return anchors;
 			}
 
+			//Click handler for all anchor elements
 			function _commonHandler(e){
 				var _this = angular.element(this),
 					nextEle = _this.next(),
@@ -227,8 +233,18 @@
 				if (nextEle.length){
 					_this.addClass("current");
 					nextEle.addClass("toggle");
+					clickFirstSibling(nextEle);
 				}else {
 					_this.addClass("current");
+				}
+			}
+
+			//Handler to click second child element
+			function clickFirstSibling(ele){
+				var firstElement = angular.element(ele).find("> li > a.isToggle").first();
+
+				if (firstElement.length){
+					firstElement.click();
 				}
 			}
 		}
