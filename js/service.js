@@ -23,57 +23,62 @@
 					[
 						{
 							'label' : 'Label',
-							'url' : '/vacature/label',
+							'url' : '/label',
 							'urlState' : 'vacature.label' 
 						},
 						{
+							'label' : 'KeywordPlanner',
+							'url' : '/keywordPlanner',
+							'urlState' : 'vacature.keywordPlanner'
+						},
+						{
 							'label' : 'Titel',
-							'url' : '/vacature/titel',
+							'url' : '/titel',
 							'urlState' : 'vacature.titel'
+						},
+						{
+							'label' : 'Tekst inhoud',
+							'url' : '/inhoud',
+							'urlState' : 'vacature.inhoud'
+						},
+						{
+							'label' : 'Vacature overzicht',
+							'url' : '/overzicht',
+							'urlState' : 'vacature.overzicht'
+						},
+						{
+							'label' : 'Verbeteradvies',
+							'url' : '/advies',
+							'urlState' : 'vacature.advies'
 						}
-						// {
-						// 	'label' : 'Tekst inhoud',
-						// 	'url' : '/vacature/inhoud',
-						// 	'urlState' : 'vacature.inhoud'
-						// },
-						// {
-						// 	'label' : 'Vacature overzicht',
-						// 	'url' : '/vacature/overzicht',
-						// 	'urlState' : 'vacature.overzicht'
-						// },
-						// {
-						// 	'label' : 'Verbeteradvies',
-						// 	'url' : '/vacature/advies',
-						// 	'urlState' : 'vacature.advies'
-						// }
 					]
 				},
-				// {
-				// 	'label' : 'Instroom management',
-				// 	'items' : 
-				// 	[
-				// 		{
-				// 			'label' : 'Benchmark',
-				// 			'url' : '/benchmark',
-				// 			'urlState' : 'instroom.benchmark'
-				// 		},
-				// 		{
-				// 			'label' : 'Kanalenmix',
-				// 			'url' : '/analenmix',
-				// 			'urlState' : 'instroom.analenmix'
-				// 		},
-				// 		{
-				// 			'label' : 'Assessments',
-				// 			'url' : '/assessments',
-				// 			'urlState' : 'instroom.assessments'
-				// 		},
-				// 		{
-				// 			'label' : 'Chat',
-				// 			'url' : '/chat',
-				// 			'urlState' : 'instroom.chat'
-				// 		}
-				// 	]
-				// },
+				{
+					'label' : 'Instroom management',
+					'items' : 
+					[
+						{
+							'label' : 'Benchmark',
+							'url' : '/benchmark',
+							'urlState' : 'instroom.benchmark'
+						},
+						{
+							'label' : 'Kanalenmix',
+							'url' : '/analenmix',
+							'urlState' : 'instroom.analenmix'
+						},
+						{
+							'label' : 'Assessments',
+							'url' : '/assessments',
+							'urlState' : 'instroom.assessments'
+						},
+						{
+							'label' : 'Chat',
+							'url' : '/chat',
+							'urlState' : 'instroom.chat'
+						}
+					]
+				},
 				{
 					'label' : 'Concepten',
 					'items' : 
@@ -89,23 +94,23 @@
 							'urlState' : 'concepten.Archief'
 						}
 					]
+				},
+				{
+					'label' : 'Publicaties',
+					'items' : 
+					[
+						{
+							'label' : 'Actueel',
+							'url' : '/Actueel',
+							'urlState' : 'publicates.Actueel'
+						},
+						{
+							'label' : 'Archief',
+							'url' : '/Archief',
+							'urlState' : 'publicates.Archief'
+						},
+					]
 				}
-				// {
-				// 	'label' : 'Publicaties',
-				// 	'items' : 
-				// 	[
-				// 		{
-				// 			'label' : 'Actueel',
-				// 			'url' : '/Actueel',
-				// 			'urlState' : 'publicates.Actueel'
-				// 		},
-				// 		{
-				// 			'label' : 'Archief',
-				// 			'url' : '/Archief',
-				// 			'urlState' : 'publicates.Archief'
-				// 		},
-				// 	]
-				// }
 			];
 
 
@@ -264,11 +269,8 @@
 					state = ele.attr('ui-sref');
 
 				if(typeof state !== "undefined"){
-					console.log(state);
 					$state.go(state);
 				}
-
-				//typeof state !== "undefined" ? $state.go(state) : "";
 
 			}
 
